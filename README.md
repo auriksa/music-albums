@@ -1,6 +1,9 @@
 Not finished, have some TODO-s in files
+
 src/js/store/releases/reducer.js
+
 src/js/components/albums_list/index.js
+
 src/App.js
 
 
