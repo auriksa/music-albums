@@ -25,7 +25,7 @@ const Album = memo(({ title, secondaryTypes, artistCredit, id, isLiked, withCont
 
   const handleDisliked = useCallback(() => {
     const liked = getLikedAlbums()
-    localStorage.setItem('liked', JSON.stringify(liked.filter((i) => i === id)))
+    localStorage.setItem('liked', JSON.stringify(liked.filter((i) => i !== id)))
     setLiked(false)
   })
 
