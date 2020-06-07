@@ -1,0 +1,35 @@
+@import "src/stylesheets/shared/variables.scss";
+
+@keyframes spinner-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($color-white, 0.8);
+  z-index: 10;
+}
+
+.spinner {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border-top: 3px solid rgba($color-text, 0.2);
+  border-right: 3px solid rgba($color-text, 0.2);
+  border-bottom: 3px solid rgba($color-text, 0.2);
+  border-left: 3px solid $color-text;
+  animation: spinner-animation 1s infinite linear;
+}

@@ -1,0 +1,18 @@
+@import "src/stylesheets/shared/variables.scss";
+
+.nav {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  border-bottom: 1px solid $color-text-light;
+
+}
+
+.link {
+  display: inline-block;
+  margin: 20px 40px;
+}
+
+.linkActive {
+  text-decoration: underline;
+}
