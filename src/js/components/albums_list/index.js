@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { selectors } from '../../store/artists'
-import { getLikedAlbums } from 'js/utils'
+import React, { memo, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectors as artistsSelector } from '@store/artists'
+import { actions as releasesActions, selectors as releasesSelector } from '@store/releases'
 import css from './styles.module.scss'
 import HeartIcon from '../icons/heart'
 import HeartBrokenIcon from '../icons/heart_broken'
@@ -9,24 +9,16 @@ import HeartBrokenIcon from '../icons/heart_broken'
 const PLACEHOLDER_URL = 'https://via.placeholder.com/250x150.jpg'
 
 const Album = memo(({ title, secondaryTypes, artistCredit, id, isLiked, withControls }) => {
+  const dispatch = useDispatch()
   const ids = artistCredit.map(({ artist: ids }) => ids)
-  const artists = useSelector(selectors.artistsByIdsSelector(ids))
-  const [liked, setLiked] = useState(isLiked)
+  const artists = useSelector(artistsSelector.artistsByIdsSelector(ids))
 
-  /*
-   * TODO: rethink this logic, localStorage usage should be in useEffect
-   * */
   const handleLiked = useCallback(() => {
-    const liked = getLikedAlbums()
-    liked.push(id)
-    localStorage.setItem('liked', JSON.stringify([...new Set(liked)]))
-    setLiked(true)
+    dispatch(releasesActions.addLikedReleases(id))
   })
 
   const handleDisliked = useCallback(() => {
-    const liked = getLikedAlbums()
-    localStorage.setItem('liked', JSON.stringify(liked.filter((i) => i !== id)))
-    setLiked(false)
+    dispatch(releasesActions.removeLikedReleases(id))
   })
 
   return (
@@ -35,7 +27,7 @@ const Album = memo(({ title, secondaryTypes, artistCredit, id, isLiked, withCont
         <img src={`${PLACEHOLDER_URL}?text=${title}`} />
         {withControls && (
           <div className={css.controls}>
-            {liked ? (
+            {isLiked ? (
               <HeartBrokenIcon className={css.icon} onClick={handleDisliked} />
             ) : (
               <HeartIcon className={css.icon} onClick={handleLiked} />
@@ -56,12 +48,12 @@ const Album = memo(({ title, secondaryTypes, artistCredit, id, isLiked, withCont
 })
 
 const AlbumsList = ({ albums, withControls = true }) => {
-  const liked = getLikedAlbums()
+  const likedIds = useSelector(releasesSelector.likedReleasesIdsSelector)
 
   return (
     <div className={css.container}>
       {albums.map((item) => {
-        const isLiked = liked.indexOf(item.id) !== -1
+        const isLiked = likedIds.indexOf(item.id) !== -1
         return <Album key={item.id} {...item} isLiked={isLiked} withControls={withControls} />
       })}
     </div>

@@ -11,14 +11,6 @@ const ProfilePage = lazy(() => import('@modules/profile_page'))
 const SearchPage = lazy(() => import('@modules/search_page'))
 
 function App() {
-  /*
-   * TODO: remove this hack
-   *  it is here because I need additional request to get info about liked albums
-   * */
-  useEffect(() => {
-    localStorage.removeItem('liked')
-  }, [])
-
   return (
     <Provider store={store}>
       <Router>

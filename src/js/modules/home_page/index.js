@@ -8,7 +8,7 @@ const HomePage = () => {
   const releases = useSelector(selectors.releasesSelector)
 
   useEffect(() => {
-    dispatch(service.getAlbums())
+    releases.length === 0 && dispatch(service.getAlbums())
   }, [dispatch])
 
   return (

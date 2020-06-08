@@ -1,10 +1,6 @@
 Not finished, have some TODO-s in files
 
-src/js/store/releases/reducer.js
-
-src/js/components/albums_list/index.js
-
-src/App.js
+src/js/store/releases/reducer.js - about initial State
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

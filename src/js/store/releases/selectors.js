@@ -19,3 +19,11 @@ export const searchedReleasesSelector = createSelector(
 
 export const releasesById = (ids) =>
   createSelector(releasesByIdSelector, (releasesById) => ids.map((id) => releasesById[id]))
+
+export const likedReleasesSelector = createSelector(
+  releasesByIdSelector,
+  releasesModuleSelector,
+  (releasesById, { likedIds: ids }) => ids.map((id) => releasesById[id])
+)
+
+export const likedReleasesIdsSelector = (state) => state[NAME].likedIds
